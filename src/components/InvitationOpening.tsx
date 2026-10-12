@@ -15,6 +15,10 @@ export const InvitationOpening: React.FC<InvitationOpeningProps> = ({ isOpen, on
   if (isOpen) return null;
 
   const handleOpen = () => {
+    // Trigger audio playback immediately on user click gesture
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("wedding:play-music"));
+    }
     setClosing(true);
     setTimeout(() => {
       onOpen();

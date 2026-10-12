@@ -9,6 +9,26 @@ export const AudioPlayer: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { t } = useLanguage();
 
+  useEffect(() => {
+    const handlePlayMusic = () => {
+      if (audioRef.current) {
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.log("Audio autoplay prevented or error:", err);
+          });
+      }
+    };
+
+    window.addEventListener("wedding:play-music", handlePlayMusic);
+    return () => {
+      window.removeEventListener("wedding:play-music", handlePlayMusic);
+    };
+  }, []);
+
   const togglePlay = () => {
     if (!audioRef.current) return;
 
@@ -27,7 +47,7 @@ export const AudioPlayer: React.FC = () => {
 
   return (
     <>
-      <audio ref={audioRef} src="/golden-poruwa/music.mp3" loop preload="none" />
+      <audio ref={audioRef} src="/golden-poruwa/music.mp3" loop preload="auto" />
       <button
         type="button"
         onClick={togglePlay}
