@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRoyal } from "./ThemeAndLangContext";
 import { HansaPuttuwa } from "./traditional/HansaPuttuwa";
 import { RoyalDivider, RoyalCorner } from "./traditional/RoyalLiyawel";
-import { Sparkles, ScrollText, Crown } from "lucide-react";
+import { Sparkles, ScrollText, Crown, Heart } from "lucide-react";
 
 interface RoyalScrollOpeningProps {
   isOpen: boolean;
@@ -18,14 +18,13 @@ export const RoyalScrollOpening: React.FC<RoyalScrollOpeningProps> = ({ isOpen, 
   if (isOpen) return null;
 
   const handleUnroll = () => {
-    // Dispatch sound trigger event
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("royal:unroll-scroll"));
     }
     setUnrolling(true);
     setTimeout(() => {
       onOpen();
-    }, 700);
+    }, 750);
   };
 
   return (
@@ -37,73 +36,95 @@ export const RoyalScrollOpening: React.FC<RoyalScrollOpeningProps> = ({ isOpen, 
         unrolling ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
       }`}
       style={{
-        backgroundColor: "#2C2214",
-        backgroundImage: "radial-gradient(ellipse at center, rgba(65, 50, 28, 0.95) 0%, rgba(28, 20, 10, 0.98) 100%)",
+        backgroundColor: "#1C140A",
+        backgroundImage:
+          "radial-gradient(circle at 50% 30%, rgba(95, 70, 30, 0.95) 0%, rgba(32, 22, 10, 0.98) 70%, #100B05 100%)",
       }}
     >
-      {/* Traditional Wooden Manuscript Covers (පුස්කොල පොතේ කම්බි) Shell */}
-      <div className="relative w-full max-w-xl mx-auto rounded-[32px] sm:rounded-[40px] bg-royal-ivory border-4 border-royal-gold/60 shadow-2xl p-6 sm:p-10 flex flex-col items-center text-center overflow-hidden">
-        {/* Ornate Corner Accents */}
-        <RoyalCorner position="tl" className="absolute top-4 left-4" size={54} />
-        <RoyalCorner position="tr" className="absolute top-4 right-4" size={54} />
-        <RoyalCorner position="bl" className="absolute bottom-4 left-4" size={54} />
-        <RoyalCorner position="br" className="absolute bottom-4 right-4" size={54} />
+      {/* Floating Gold Lights in Backdrop */}
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-royal-gold/15 blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 rounded-full bg-royal-gold/15 blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+      </div>
 
-        {/* Top Royal Seal Emblem */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-royal-gold/15 border border-royal-gold/40 text-[11px] font-semibold text-royal-goldDark tracking-widest uppercase mb-3">
-          <Crown className="w-3.5 h-3.5 text-royal-gold" />
+      {/* LUXURY ROYAL FOLIO CARD SHELL */}
+      <div className="relative w-full max-w-lg sm:max-w-xl mx-auto rounded-[36px] sm:rounded-[44px] bg-[#FCF9F2] p-8 sm:p-11 flex flex-col items-center text-center shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] border-2 border-[#D4AF37]/50 overflow-hidden">
+        
+        {/* Embossed Inner Gold Lines */}
+        <div className="absolute inset-3 sm:inset-4 rounded-[28px] sm:rounded-[36px] border border-[#D4AF37]/40 pointer-events-none" />
+        <div className="absolute inset-4 sm:inset-5 rounded-[24px] sm:rounded-[32px] border border-[#D4AF37]/25 border-dashed pointer-events-none" />
+
+        {/* 4 Traditional Corner Filigree */}
+        <RoyalCorner position="tl" className="absolute top-5 left-5" size={56} />
+        <RoyalCorner position="tr" className="absolute top-5 right-5" size={56} />
+        <RoyalCorner position="bl" className="absolute bottom-5 left-5" size={56} />
+        <RoyalCorner position="br" className="absolute bottom-5 right-5" size={56} />
+
+        {/* Silk Ribbon Accent behind seal */}
+        <div className="absolute top-0 bottom-0 w-8 bg-gradient-to-r from-[#D4AF37]/15 via-[#FFF4D0]/30 to-[#D4AF37]/15 pointer-events-none opacity-60" />
+
+        {/* Top Royal Crest Badge */}
+        <div className="relative z-10 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#D4AF37]/20 via-[#FFF4D0]/30 to-[#D4AF37]/20 border border-[#D4AF37]/50 text-xs font-serif font-bold text-[#8C6615] tracking-[0.2em] uppercase mb-3 shadow-sm">
+          <Crown className="w-4 h-4 text-[#C49A28]" />
           <span>{t.scroll.royalBadge}</span>
         </div>
 
-        {/* VIP Plaque if link has guest name */}
+        {/* VIP Plaque if guest parameter provided */}
         {guestName && (
-          <div className="mb-3 px-4 py-1.5 rounded-full bg-royal-gold/20 border border-royal-gold/50 text-xs font-serif font-bold text-royal-goldDark">
-            {t.scroll.vipSalutation}: {guestName}
+          <div className="relative z-10 mb-3 px-5 py-2 rounded-2xl bg-gradient-to-r from-[#FFF4D0] to-[#F6E79D] border border-[#C49A28]/40 shadow-sm text-xs sm:text-sm font-serif font-bold text-[#6D4E08] animate-pulse">
+            ✦ {t.scroll.vipSalutation}: {guestName} ✦
           </div>
         )}
 
-        {/* Royal Hansa Puttuwa Emblem */}
-        <div className="my-2 w-36 sm:w-44 drop-shadow-md">
-          <HansaPuttuwa size="100%" />
+        {/* 3D Wax Seal Style Medallion with Hansa Puttuwa */}
+        <div className="relative z-10 my-2 sm:my-3 w-40 sm:w-48 drop-shadow-xl transition-transform hover:scale-105 duration-500">
+          <div className="relative">
+            <HansaPuttuwa size="100%" />
+          </div>
         </div>
 
-        {/* Sacred Heading */}
-        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-royal-goldDark my-1 tracking-wide">
+        {/* Sacred Greeting in Golden Typography */}
+        <h1 className="relative z-10 text-2xl sm:text-4xl font-serif font-extrabold gold-text-shimmer leading-tight my-1 drop-shadow-sm">
           {t.scroll.greeting}
         </h1>
 
-        <RoyalDivider width={180} className="my-2" />
+        <RoyalDivider width={190} className="my-2.5 opacity-90" />
 
         {/* Couple Names */}
-        <div className="my-3">
-          <div className="text-xl sm:text-2xl font-serif font-bold text-royal-ink tracking-wide">
+        <div className="relative z-10 my-3">
+          <div className="text-2xl sm:text-3xl font-serif font-extrabold text-[#2C2214] tracking-wide">
             {isSinhala ? config.couple.groom.fullNameSi : config.couple.groom.fullNameEn}
           </div>
-          <div className="my-1 text-sm font-serif font-bold text-royal-gold uppercase tracking-widest">
-            {isSinhala ? "සමඟ අතිනත ගන්නා" : "AND"}
+          <div className="my-1.5 flex items-center justify-center gap-3">
+            <span className="w-8 h-px bg-[#D4AF37]/60" />
+            <span className="text-xs sm:text-sm font-serif font-bold text-[#C49A28] uppercase tracking-[0.25em]">
+              {isSinhala ? "සමඟ අතිනත ගන්නා" : "AND"}
+            </span>
+            <span className="w-8 h-px bg-[#D4AF37]/60" />
           </div>
-          <div className="text-xl sm:text-2xl font-serif font-bold text-royal-ink tracking-wide">
+          <div className="text-2xl sm:text-3xl font-serif font-extrabold text-[#2C2214] tracking-wide">
             {isSinhala ? config.couple.bride.fullNameSi : config.couple.bride.fullNameEn}
           </div>
         </div>
 
-        {/* Date Reminder */}
-        <p className="text-xs sm:text-sm font-sinhala text-royal-muted mb-6">
+        {/* Auspicious Date snippet */}
+        <div className="relative z-10 text-xs sm:text-sm font-sinhala text-[#786951] font-semibold mb-6">
           {config.event.year} {isSinhala ? config.event.monthSi : config.event.monthEn} {config.event.day} — {config.event.venue.nameSi}
-        </p>
+        </div>
 
-        {/* Unroll Button */}
+        {/* Open Button with Glowing Pulsating Effect */}
         <button
           type="button"
           onClick={handleUnroll}
           aria-label={t.scroll.unrollParchment}
-          className="group relative inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-serif font-bold text-sm sm:text-base text-royal-ivory bg-gradient-to-r from-royal-gold via-royal-goldDark to-[#7A5C10] shadow-royal-gold hover:shadow-royal-glow transition-all duration-300 hover:scale-105 active:scale-95 border border-royal-goldLight/60"
+          className="group relative z-10 inline-flex items-center justify-center gap-3 px-9 sm:px-12 py-4 rounded-full font-serif font-extrabold text-sm sm:text-base text-[#1C140A] bg-gradient-to-r from-[#F6E79D] via-[#D4AF37] to-[#B89222] shadow-[0_12px_28px_rgba(212,175,55,0.45)] hover:shadow-[0_16px_36px_rgba(212,175,55,0.65)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 border-2 border-[#FFF7D6]"
+          style={{ animation: "goldPulseGlow 3s infinite" }}
         >
-          <ScrollText className="w-5 h-5 text-royal-goldLight group-hover:rotate-6 transition-transform" />
-          <span>{t.scroll.unrollParchment}</span>
+          <Sparkles className="w-5 h-5 text-[#6D4E08] group-hover:rotate-12 transition-transform" />
+          <span className="tracking-wide">{t.scroll.unrollParchment}</span>
         </button>
 
-        <p className="text-[11px] font-sinhala text-royal-muted/80 mt-3">
+        <p className="relative z-10 text-[11px] font-sinhala text-[#8A7960] mt-3">
           {t.scroll.cordText}
         </p>
       </div>
