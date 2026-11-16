@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@400;500;600;700&family=Noto+Serif+Sinhala:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Yaldevi:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sinhala: 'Abhaya Libre', 'Noto Serif Sinhala', serif;
+  --font-sinhala-heading: 'Yaldevi', 'Abhaya Libre', serif;
+  --font-serif: 'Cinzel', 'Playfair Display', serif;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+/* Theme 1: Swarna (Royal Gold & Warm Ivory/Parchment) */
+.theme-swarna {
+  --bg-primary: #FAF6ED;
+  --bg-card: #FFFDF9;
+  --gold-primary: #D4AF37;
+  --gold-dark: #9A7B1C;
+  --ink-primary: #2C2214;
+  --text-muted: #786951;
+}
+
+/* Theme 2: Nilame (Kandyan Royal Maroon Crimson & Gold) */
+.theme-nilame {
+  --bg-primary: #F9F2F3;
+  --bg-card: #FFFFFF;
+  --gold-primary: #B22234;
+  --gold-dark: #6B1426;
+  --ink-primary: #2D0F16;
+  --text-muted: #6B4C53;
+}
+
+/* Theme 3: Haritha (Temple Emerald Green & Champagne Gold) */
+.theme-haritha {
+  --bg-primary: #F3F7F5;
+  --bg-card: #FFFFFF;
+  --gold-primary: #1B4D3E;
+  --gold-dark: #0E2F25;
+  --ink-primary: #0D261E;
+  --text-muted: #4F6B62;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sinhala);
+  background-color: #FAF6ED;
+  color: #2C2214;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #FAF6ED;
+  /* Authentic subtle royal parchment texture pattern */
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 248, 230, 0.8) 0%, rgba(250, 246, 237, 0.4) 100%),
+    linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 36px 36px, 36px 36px;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
